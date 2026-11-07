@@ -1,0 +1,20 @@
+# AWS credentials must never be committed
+.aws/
+*.pem
+*.key
+.env
+
+# Terraform state can contain secrets (VPN pre-shared keys, IPs)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Logs downloaded during testing
+*.log
