@@ -12,7 +12,7 @@ Goal: secure the AWS account before building anything in it.
 ## To do
 - (done, see below)
 - (done, see below)
-- Use us-east-1 (N. Virginia) as the default region
+- (done, see below)
 
 ## Cost plan
 - No AWS credits on this account, so the lab runs on pay-as-you-go pricing.
@@ -33,3 +33,10 @@ Goal: secure the AWS account before building anything in it.
 - Monthly cost budget "lab-monthly-5usd" at $5, with email alerts at 85%
   actual spend, 100% forecasted spend, and 100% actual spend.
 - The forecast alert is the early warning if lab resources are left running.
+
+## Region
+- All lab resources are built in us-east-1 (N. Virginia). Keeping
+  everything in one region means the pieces can connect and nothing is
+  left running somewhere I am not looking.
+- The region is also pinned in the Terraform provider and AWS CLI config,
+  so it does not depend on what the console happens to show.
