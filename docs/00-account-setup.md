@@ -13,3 +13,11 @@ Goal: secure the AWS account before building anything in it.
 - Confirm Anthony has AdministratorAccess and MFA
 - Budget alert at $5
 - Use us-east-1 (N. Virginia) as the default region
+
+## Cost plan
+- No AWS credits on this account, so the lab runs on pay-as-you-go pricing.
+- Main cost is the Site-to-Site VPN (about $0.05 per hour) plus a small
+  EC2 instance for the office router.
+- The lab is built with Terraform and destroyed at the end of every session,
+  keeping the estimated total cost around $5 to $15.
+- No NAT gateway in the design, since it bills hourly even when idle.
