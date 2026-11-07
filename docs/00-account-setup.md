@@ -11,7 +11,7 @@ Goal: secure the AWS account before building anything in it.
 
 ## To do
 - (done, see below)
-- Budget alert at $5
+- (done, see below)
 - Use us-east-1 (N. Virginia) as the default region
 
 ## Cost plan
@@ -28,3 +28,8 @@ Goal: secure the AWS account before building anything in it.
 - Console access was enabled without MFA. Added an authenticator app MFA
   device so a stolen password alone cannot be used to sign in.
 - No long lived access keys on this user yet.
+
+## Budget alert
+- Monthly cost budget "lab-monthly-5usd" at $5, with email alerts at 85%
+  actual spend, 100% forecasted spend, and 100% actual spend.
+- The forecast alert is the early warning if lab resources are left running.
