@@ -26,3 +26,7 @@ output "vpn_tunnel_endpoints" {
   description = "AWS's public IPs for the two tunnels"
   value       = [aws_vpn_connection.office.tunnel1_address, aws_vpn_connection.office.tunnel2_address]
 }
+
+output "app_server_private_ip" {
+  value = aws_instance.app_server.private_ip
+}
