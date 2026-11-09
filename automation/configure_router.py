@@ -147,7 +147,7 @@ def render_frr(tunnels, private_ip, gateway):
 def render_script(tunnels, private_ip, gateway):
     """The shell script that runs on the router."""
     parts = [
-        "set -euo pipefail",
+        "set -eu",  # SSM runs scripts with /bin/sh (dash), which has no pipefail
         "export DEBIAN_FRONTEND=noninteractive",
         "# Use the swanctl-based strongSwan service instead of the legacy starter.",
         "dpkg -s charon-systemd >/dev/null 2>&1 || apt-get install -y charon-systemd",
