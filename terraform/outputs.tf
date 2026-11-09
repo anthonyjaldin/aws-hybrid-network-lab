@@ -5,3 +5,7 @@ output "cloud_vpc_id" {
 output "cloud_private_subnet_id" {
   value = aws_subnet.cloud_private.id
 }
+
+output "office_vpc_id" {
+  value = aws_vpc.office.id
+}
