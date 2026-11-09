@@ -38,14 +38,14 @@ resource "aws_security_group" "office_router" {
   vpc_id      = aws_vpc.office.id
 
   # IKE (key exchange) and IPsec NAT traversal, used to build the tunnels.
-  # Open to any address for now; narrowed to AWS's two tunnel endpoints
-  # once the VPN exists (Phase 4).
+  # Only AWS's two tunnel endpoints may connect. The router's public IP
+  # is 1:1 NAT, so IPsec traffic is wrapped in UDP 4500 (NAT-T).
   ingress {
     description = "IKE"
     from_port   = 500
     to_port     = 500
     protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = local.aws_tunnel_cidrs
   }
 
   ingress {
@@ -53,7 +53,7 @@ resource "aws_security_group" "office_router" {
     from_port   = 4500
     to_port     = 4500
     protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = local.aws_tunnel_cidrs
   }
 
   # Office machines send their cloud-bound traffic through the router.
@@ -119,9 +119,13 @@ resource "aws_instance" "office_router" {
 
 # A public IP that does not change, so the VPN configuration stays valid.
 resource "aws_eip" "office_router" {
-  domain   = "vpc"
-  instance = aws_instance.office_router.id
-  tags     = { Name = "office-router-eip" }
+  domain = "vpc"
+  tags   = { Name = "office-router-eip" }
+}
+
+resource "aws_eip_association" "office_router" {
+  allocation_id = aws_eip.office_router.id
+  instance_id   = aws_instance.office_router.id
 }
 
 # Office workstations reach the cloud network through the router.
