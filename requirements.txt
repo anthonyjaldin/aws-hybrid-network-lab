@@ -1,0 +1,4 @@
+awscrt==0.38.0
+boto3==1.43.126
+botocore==1.43.126
+pytest==9.2.0
