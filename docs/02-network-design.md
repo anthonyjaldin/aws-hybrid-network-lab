@@ -22,3 +22,16 @@ BGP: AWS virtual private gateway ASN 64512, office router ASN 65020
   it is reachable only from the office across the VPN.
 - Single availability zone (us-east-1a) to keep the lab small and cheap.
   A production design would span at least two.
+
+## Verification: cloud VPC
+Built with `terraform apply` (9 resources), then checked the route tables
+with the AWS CLI rather than trusting the code:
+
+| Route table | Routes |
+|---|---|
+| cloud-private-rt | 10.10.0.0/16 -> local |
+| cloud-public-rt | 10.10.0.0/16 -> local, 0.0.0.0/0 -> internet gateway |
+
+The private subnet has no default route, so any packet to an address
+outside the VPC has no matching route and is dropped (longest prefix
+match finds nothing). That missing route is what makes it private.
